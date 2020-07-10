@@ -1,4 +1,4 @@
-package com.sleeksys.app.anonymizer.model;
+package com.sleeksys.app.anonymizer.entity;
 
 public enum PrivacyLevel {
     MEDIUM,

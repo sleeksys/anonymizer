@@ -9,5 +9,4 @@ class AnonymizerApplicationTests {
     @Test
     void contextLoads() {
     }
-
 }

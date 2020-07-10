@@ -1,9 +1,10 @@
 package com.sleeksys.app.anonymizer.repository;
 
-import com.sleeksys.app.anonymizer.model.Label;
+import com.sleeksys.app.anonymizer.entity.Label;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import javax.transaction.Transactional;
+
+@Transactional
 public interface LabelRepository extends JpaRepository<Label, Long> {
 }
