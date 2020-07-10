@@ -13,18 +13,9 @@ import java.util.List;
 public class LabelService {
 
     private LabelRepository labelRepository;
+    private EntityService entityService;
 
     public List<Label> findAll() {
-        this.labelRepository.save(new Label("Text 1"));
-        this.labelRepository.save(new Label("Text 2"));
-        this.labelRepository.save(new Label("Text 3"));
-        this.labelRepository.save(new Label("Text 4"));
-        this.labelRepository.save(new Label("Text 5"));
-
-        List<Label> labels = new ArrayList<>();
-        this.labelRepository.findAll().forEach(label -> {
-            labels.add(label);
-        });
-        return labels;
+        return this.entityService.findLabels();
     }
 }
