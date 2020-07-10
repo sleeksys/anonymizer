@@ -2,7 +2,6 @@ package com.sleeksys.app.anonymizer.service;
 
 import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Token;
-import com.sleeksys.app.anonymizer.exception.ResourceNotFoundException;
 import com.sleeksys.app.anonymizer.repository.CellRepository;
 import lombok.AllArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
@@ -25,15 +24,19 @@ public class CellService {
     private TokenService tokenService;
 
     public Map<Integer, List<String>> findByToken(String tokenValue) {
-        this.tokenService.findByValue(tokenValue);
-
+        Token token = this.tokenService.findByValue(tokenValue);
         Map<Integer, List<String>> map = new HashMap<>();
+
         this.entityService.findCells().forEach((cell -> {
-            Integer key = cell.getRowIndex();
-            if (!map.containsKey(key)) {
-                map.put(key, Arrays.asList(new String[]{cell.getText()}));
-            } else {
-                map.get(key).add(cell.getText());
+            if (cell.getTokenId().equals(token.getId())) {
+                Integer key = cell.getRowIndex();
+                if (!map.containsKey(key)) {
+                    List<String> list = new ArrayList<>();
+                    list.add(cell.getText());
+                    map.put(key, list);
+                } else {
+                    map.get(key).add(cell.getText());
+                }
             }
         }));
         return map;
