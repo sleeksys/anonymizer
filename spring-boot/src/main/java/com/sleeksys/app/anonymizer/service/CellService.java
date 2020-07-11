@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -23,8 +24,8 @@ public class CellService {
     private EntityService entityService;
     private TokenService tokenService;
 
-    public Map<Integer, List<String>> findByToken(String tokenValue) {
-        Token token = this.tokenService.findByValue(tokenValue);
+    public Map<Integer, List<String>> findByToken(HttpSession session, String tokenValue) {
+        Token token = this.tokenService.findByValue(session, tokenValue);
         Map<Integer, List<String>> map = new HashMap<>();
 
         this.entityService.findCells().forEach((cell -> {
@@ -42,14 +43,14 @@ public class CellService {
         return map;
     }
 
-    public Map<Integer, List<String>> insert(String tokenValue, MultipartFile file) throws Exception {
+    public Map<Integer, List<String>> insert(HttpSession session, String tokenValue, MultipartFile file) throws Exception {
         if (hasExcelFormat(file)) {
-            Token token = this.tokenService.findByValue(tokenValue);
+            Token token = this.tokenService.findByValue(session, tokenValue);
             List<Cell> cells = excelToList(file.getInputStream(), token.getId());
             cells.forEach(cell -> {
                 this.cellRepository.save(cell);
             });
-            return this.findByToken(tokenValue);
+            return this.findByToken(session, tokenValue);
         }
         throw new Exception("Please upload an excel file!");
     }

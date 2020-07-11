@@ -18,6 +18,10 @@ public class Token {
     private Long id;
 
     @NotNull
+    @Column(name = "session_id")
+    private String sessionId;
+
+    @NotNull
     @Column(unique = true)
     private String value;
 

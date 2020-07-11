@@ -5,19 +5,21 @@ import com.sleeksys.app.anonymizer.service.TokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+
 @RestController
 @AllArgsConstructor
 public class TokenController {
 
     private TokenService tokenService;
 
-    @GetMapping("/tokens/{token}")
-    public Token findByValue(@PathVariable String token) {
-        return this.tokenService.findByValue(token);
+    @GetMapping("/tokens")
+    public String insert(HttpSession session) {
+        return this.tokenService.insert(session);
     }
 
-    @PostMapping("/tokens")
-    public String insert() {
-        return this.tokenService.insert();
+    @GetMapping("/tokens/{token}")
+    public Token findByValue(HttpSession session, @PathVariable String token) {
+        return this.tokenService.findByValue(session, token);
     }
 }

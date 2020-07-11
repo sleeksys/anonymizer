@@ -1,7 +1,8 @@
 -- Tokens: used for authentication
 CREATE TABLE tokens (
     id BIGINT NOT NULL,
-    value VARCHAR (255),
+    session_id VARCHAR (255) NOT NULL,
+    value VARCHAR (255) NOT NULL,
     date_start DATETIME NOT NULL,
     date_end DATETIME NOT NULL,
     PRIMARY KEY (id),
