@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Data @NoArgsConstructor
 @Table(name = "labels")
 public class Label {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

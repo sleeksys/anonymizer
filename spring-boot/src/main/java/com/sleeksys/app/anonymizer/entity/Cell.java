@@ -16,8 +16,8 @@ public class Cell {
     private Long id;
 
     @NotNull
-    @Column(name = "token_id")
-    private Long tokenId;
+    @Column(name = "context_id")
+    private String contextId;
 
     @NotNull
     @Column(name = "row_index")

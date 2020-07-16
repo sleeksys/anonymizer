@@ -2,10 +2,10 @@ package com.sleeksys.app.anonymizer.service;
 
 import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Label;
-import com.sleeksys.app.anonymizer.entity.Token;
+import com.sleeksys.app.anonymizer.entity.SessionContext;
 import com.sleeksys.app.anonymizer.repository.CellRepository;
 import com.sleeksys.app.anonymizer.repository.LabelRepository;
-import com.sleeksys.app.anonymizer.repository.TokenRepository;
+import com.sleeksys.app.anonymizer.repository.SessionContextRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -17,16 +17,16 @@ import java.util.List;
 @AllArgsConstructor
 public class EntityService {
 
-    private TokenRepository tokenRepository;
+    private SessionContextRepository sessionContextRepository;
     private CellRepository cellRepository;
     private LabelRepository labelRepository;
 
-    public List<Token> findTokens() {
-        List<Token> tokens = new ArrayList<>();
-        this.tokenRepository.findAll().forEach(token -> {
-            tokens.add(token);
+    public List<SessionContext> findContext() {
+        List<SessionContext> list = new ArrayList<>();
+        this.sessionContextRepository.findAll().forEach(context -> {
+            list.add(context);
         });
-        return tokens;
+        return list;
     }
 
     public List<Cell> findCells() {

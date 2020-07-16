@@ -1,13 +1,16 @@
 package com.sleeksys.app.anonymizer.service;
 
 import com.sleeksys.app.anonymizer.entity.Cell;
-import com.sleeksys.app.anonymizer.entity.Token;
+import com.sleeksys.app.anonymizer.entity.Label;
+import com.sleeksys.app.anonymizer.entity.SessionContext;
 import com.sleeksys.app.anonymizer.repository.CellRepository;
+import com.sleeksys.app.anonymizer.repository.LabelRepository;
 import lombok.AllArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,15 +24,21 @@ import java.util.*;
 public class CellService {
 
     private CellRepository cellRepository;
-    private EntityService entityService;
-    private TokenService tokenService;
+    private LabelRepository labelRepository;
 
-    public Map<Integer, List<String>> findByToken(HttpSession session, String tokenValue) {
-        Token token = this.tokenService.findByValue(session, tokenValue);
+    private EntityService entityService;
+    private SessionContextService sessionContextService;
+
+    public Optional<Cell> findById(Long id) {
+        return this.cellRepository.findById(id);
+    }
+
+    public Map<Integer, List<String>> findByContext(HttpSession session, String contextId) {
+        SessionContext context = this.sessionContextService.findById(session, contextId);
         Map<Integer, List<String>> map = new HashMap<>();
 
         this.entityService.findCells().forEach((cell -> {
-            if (cell.getTokenId().equals(token.getId())) {
+            if (cell.getContextId().equals(context.getId())) {
                 Integer key = cell.getRowIndex();
                 if (!map.containsKey(key)) {
                     List<String> list = new ArrayList<>();
@@ -43,14 +52,25 @@ public class CellService {
         return map;
     }
 
-    public Map<Integer, List<String>> insert(HttpSession session, String tokenValue, MultipartFile file) throws Exception {
+    public ResponseEntity<?> download(HttpSession session, String contextId) {
+        return null;
+    }
+
+    public List<Label> insert(HttpSession session, String contextId, MultipartFile file) throws Exception {
         if (hasExcelFormat(file)) {
-            Token token = this.tokenService.findByValue(session, tokenValue);
-            List<Cell> cells = excelToList(file.getInputStream(), token.getId());
+            List<Label> labels = new ArrayList<>();
+            SessionContext context = this.sessionContextService.findById(session, contextId);
+            List<Cell> cells = excelToList(file.getInputStream(), context.getId());
             cells.forEach(cell -> {
-                this.cellRepository.save(cell);
+                Cell tmp = this.cellRepository.save(cell);
+
+                // add label
+                if (cell.getRowIndex() == 0) {
+                    Label label = this.labelRepository.save(new Label(tmp.getText(), tmp.getId()));
+                    labels.add(label);
+                }
             });
-            return this.findByToken(session, tokenValue);
+            return labels;
         }
         throw new Exception("Please upload an excel file!");
     }
@@ -63,7 +83,7 @@ public class CellService {
         return true;
     }
 
-    private List<Cell> excelToList(InputStream is, Long tokenId) {
+    private List<Cell> excelToList(InputStream is, String contextId) {
         List<Cell> cells = new ArrayList<>();
         try {
             Workbook workbook = new XSSFWorkbook(is);
@@ -80,7 +100,7 @@ public class CellService {
                     org.apache.poi.ss.usermodel.Cell sheetCell = cellsInRow.next();
 
                     Cell obj = new Cell();
-                    obj.setTokenId(tokenId);
+                    obj.setContextId(contextId);
                     obj.setRowIndex(rowNumber);
                     obj.setColumnIndex(cellIdx);
                     obj.setText(sheetCell.getStringCellValue());
