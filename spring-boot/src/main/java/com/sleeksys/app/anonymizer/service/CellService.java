@@ -53,6 +53,9 @@ public class CellService {
     }
 
     public ResponseEntity<?> download(HttpSession session, String contextId) {
+        // this call throws an exception if context's id don't match session
+        this.sessionContextService.findById(session, contextId);
+
         return null;
     }
 
