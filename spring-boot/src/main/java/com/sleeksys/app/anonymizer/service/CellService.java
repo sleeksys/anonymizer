@@ -38,7 +38,7 @@ public class CellService {
         Map<Integer, List<String>> map = new HashMap<>();
 
         this.entityService.findCells().forEach((cell -> {
-            if (cell.getContextId().equals(context.getId())) {
+            if (cell.getContextId().equals(context.getContextId())) {
                 Integer key = cell.getRowIndex();
                 if (!map.containsKey(key)) {
                     List<String> list = new ArrayList<>();
@@ -63,7 +63,7 @@ public class CellService {
         if (hasExcelFormat(file)) {
             List<Label> labels = new ArrayList<>();
             SessionContext context = this.sessionContextService.findById(session, contextId);
-            List<Cell> cells = excelToList(file.getInputStream(), context.getId());
+            List<Cell> cells = excelToList(file.getInputStream(), context.getContextId());
             cells.forEach(cell -> {
                 Cell tmp = this.cellRepository.save(cell);
 

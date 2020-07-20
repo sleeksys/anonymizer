@@ -21,7 +21,7 @@ public class SessionContextService {
         List<SessionContext> list = this.entityService.findContext()
                 .stream()
                 .filter((context -> (
-                        context.getId().equals(id)
+                        context.getContextId().equals(id)
                         && context.getSessionId().equals(session.getId())
                 )))
                 .collect(Collectors.toList());
@@ -39,6 +39,6 @@ public class SessionContextService {
         SessionContext context = new SessionContext();
         context.setSessionId(session.getId());
         this.sessionContextRepository.save(context);
-        return context.getId();
+        return context.getContextId();
     }
 }
