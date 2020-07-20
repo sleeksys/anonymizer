@@ -46,7 +46,7 @@ public class SessionContext {
     }
 
     private String generateValue(int length) {
-        String CHARS = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!@#$";
+        String CHARS = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890-_";
         StringBuilder token = new StringBuilder(length);
         Random random = new Random();
         for (int i = 0; i < length; i++) {
