@@ -1,0 +1,19 @@
+<header>
+  <div class="container">
+    <nav>
+      <a
+        [routerLink]="'/home'"
+        [className]="'active'">Home</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</section>
+
+<footer>
+  <div class="container"></div>
+</footer>
