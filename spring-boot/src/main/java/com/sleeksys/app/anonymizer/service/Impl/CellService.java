@@ -79,7 +79,6 @@ public class CellService implements ICellService {
             Workbook workbook = new XSSFWorkbook(is);
             Sheet sheet = workbook.getSheetAt(0);
             Iterator<Row> rows = sheet.iterator();
-            System.out.println("Premiere Ligne" + " " + sheet.getFirstRowNum());
 
             int rowNumber = 0;
             while (rows.hasNext()) {
