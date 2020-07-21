@@ -1,6 +1,6 @@
 package com.sleeksys.app.anonymizer.controller;
 
-import com.sleeksys.app.anonymizer.service.CellService;
+import com.sleeksys.app.anonymizer.service.Impl.CellService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +21,7 @@ public class CellController {
     }
 
     @PostMapping("/upload/{token}")
-    public Map<Integer, List<String>> insert(HttpSession session, @PathVariable String token, @RequestParam("file") MultipartFile file) throws Exception {
+    public Map<Integer, List<String>> insert(HttpSession session, @PathVariable(name = "token") String token, @RequestParam("file") MultipartFile file) throws Exception {
         return this.cellService.insert(session, token, file);
     }
 }
