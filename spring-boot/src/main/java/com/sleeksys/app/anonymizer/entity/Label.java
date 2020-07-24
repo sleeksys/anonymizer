@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -27,6 +28,9 @@ public class Label {
     @NotNull
     @Column(name = "privacy_level")
     private PrivacyLevel privacyLevel;
+
+    @OneToMany(mappedBy = "label")
+    private List<Cell> cells;
 
     public Label(String text, Long cellId) {
         this.text = text;

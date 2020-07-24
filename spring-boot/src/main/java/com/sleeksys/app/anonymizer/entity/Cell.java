@@ -29,5 +29,8 @@ public class Cell {
     @Column(name = "column_index")
     private Integer columnIndex;
 
+    @ManyToOne
+    private Label label;
+
     private String text;
 }
