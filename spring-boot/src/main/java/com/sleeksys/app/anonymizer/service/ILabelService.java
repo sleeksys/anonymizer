@@ -1,5 +1,6 @@
 package com.sleeksys.app.anonymizer.service;
 
+import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Label;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,4 +41,6 @@ public interface ILabelService {
     public  ResponseEntity<Label> updateLabel( Long id, Label label);
 
     public ResponseEntity<Label> findLabelById(Long id);
+
+    public  ResponseEntity<List<Cell>> findCellsOfLabelById(Long id);
 }

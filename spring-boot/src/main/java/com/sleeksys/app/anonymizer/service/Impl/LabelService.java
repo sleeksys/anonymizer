@@ -1,5 +1,6 @@
 package com.sleeksys.app.anonymizer.service.Impl;
 
+import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Label;
 import com.sleeksys.app.anonymizer.repository.LabelRepository;
 import com.sleeksys.app.anonymizer.service.ILabelService;
@@ -111,6 +112,17 @@ public class LabelService implements ILabelService {
         if (labelData.isPresent()) {
             return new ResponseEntity<>(labelData.get(), HttpStatus.OK);
         } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @Override
+    public ResponseEntity<List<Cell>> findCellsOfLabelById(Long id) {
+        Optional<Label> labelData = labelRepository.findById(id);
+
+        if(labelData.isPresent()){
+            return new ResponseEntity<>(labelData.get().getCells(), HttpStatus.OK);
+        }else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

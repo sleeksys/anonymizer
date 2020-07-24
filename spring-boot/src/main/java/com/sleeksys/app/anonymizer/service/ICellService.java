@@ -44,4 +44,5 @@ public interface ICellService {
      *
      * */
     public String anonymizeData(String data);
+
 }

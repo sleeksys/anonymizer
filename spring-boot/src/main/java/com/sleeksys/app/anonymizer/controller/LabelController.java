@@ -1,5 +1,6 @@
 package com.sleeksys.app.anonymizer.controller;
 
+import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Label;
 import com.sleeksys.app.anonymizer.service.Impl.LabelService;
 import lombok.AllArgsConstructor;
@@ -49,6 +50,12 @@ public class LabelController {
     labels.add(label);
     this.labelService.saveLabels(labels);
     return label;
+    }
+
+    @GetMapping("/labels/{id}")
+    public  ResponseEntity<List<Cell>> findCellsOfLabelById(@PathVariable(name = "id") Long id){
+
+        return this.labelService.findCellsOfLabelById(id);
     }
 
 

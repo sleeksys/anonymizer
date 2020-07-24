@@ -122,7 +122,14 @@ public class CellService implements ICellService {
 
             Sheet sheet = workbook.getSheetAt(0);
 
-            for (int rowIndex = sheet.getFirstRowNum(); rowIndex == sheet.getFirstRowNum(); rowIndex++) {
+            // search for the first non empty row
+
+            int firstRowIndex = sheet.getFirstRowNum();
+
+            // search for the last non empty row
+            int lastRowIndex = sheet.getLastRowNum();
+
+            for (int rowIndex = firstRowIndex; rowIndex == firstRowIndex; rowIndex++) {
 
                 // Get the column number of a row
                 int colNumber = sheet.getRow(rowIndex).getPhysicalNumberOfCells();
@@ -135,7 +142,27 @@ public class CellService implements ICellService {
                     String value = sheet.getRow(rowIndex).getCell(firstColIndex).getStringCellValue();
 
                     if (value != null) {
+
                         Label label = new Label(value, (long) firstColIndex);
+                        List<Cell> cells = new ArrayList<>();
+
+                        // Extract cells for every label
+                        for(int rowCellIndex = sheet.getFirstRowNum()+1; rowCellIndex <= lastRowIndex; rowCellIndex++) {
+
+                            String valueCell = sheet.getRow(rowCellIndex).getCell(Math.toIntExact(label.getCellId())).getStringCellValue();
+
+                            if (valueCell != null) {
+                                Cell cell = new Cell();
+                                cell.setTokenId(tokenId);
+                                cell.setRowIndex(rowCellIndex);
+                                cell.setColumnIndex(Math.toIntExact(label.getCellId()));
+                                cell.setText(valueCell);
+
+                                cells.add(cell);
+                            }
+                        }
+
+                        label.setCells(cells);
                         labels.add(label);
                     }
 
@@ -163,7 +190,7 @@ public class CellService implements ICellService {
 
         List<Cell> cells = new ArrayList<>();
 
-        try {
+/*        try {
             Workbook workbook = new XSSFWorkbook(is);
             Sheet sheet = workbook.getSheetAt(0);
 
@@ -205,7 +232,7 @@ public class CellService implements ICellService {
         }catch (IOException e){
 
             throw new RuntimeException("Failed to parse Excel file: " + e.getMessage());
-        }
+        }*/
 
 
         return cells;
