@@ -159,7 +159,7 @@ public class CellService implements ICellService {
                                 cell.setRowIndex(rowCellIndex);
                                 cell.setColumnIndex(Math.toIntExact(label.getCellId()));
                                 cell.setText(valueCell);
-
+                                cell.setLabel(label);
                                 cells.add(cell);
                             }
                         }
