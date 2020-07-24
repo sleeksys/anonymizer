@@ -5,6 +5,7 @@ import com.sleeksys.app.anonymizer.entity.Label;
 import com.sleeksys.app.anonymizer.service.Impl.CellService;
 import com.sleeksys.app.anonymizer.service.Impl.LabelService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,11 +26,13 @@ public class LabelController {
 
     private CellService cellService;
 
+    private RepositoryRestConfiguration restConfiguration;
 
-    @GetMapping("/labels")
+
+/*    @GetMapping("/labels")
     public ResponseEntity<List<Label>> findAllLabels() {
         return this.labelService.findAll();
-    }
+    }*/
 
 /*    @GetMapping("/labels/{id}")
     public  ResponseEntity<Label> findLabelById(@PathVariable(name = "id") Long id){
@@ -37,7 +40,7 @@ public class LabelController {
     }*/
 
 
-    @DeleteMapping("labels")
+/*    @DeleteMapping("labels")
     public ResponseEntity<HttpStatus> deleteAllLabels(){
        return this.labelService.deleteAllLabels();
     }
@@ -64,23 +67,17 @@ public class LabelController {
     public  ResponseEntity<List<Cell>> findCellsOfLabelById(@PathVariable(name = "id") Long id){
 
         return this.labelService.findCellsOfLabelById(id);
-    }
+    }*/
 
     @PostMapping("/uploadFile")
     public void insert(@RequestParam("file") MultipartFile file) throws IOException {
-
-        System.out.println("Path File" + " " + file.getOriginalFilename());
-
         List<Label> labels = this.cellService.extractLabelsFromExcelSheet(file.getInputStream(),1L);
-
+        restConfiguration.exposeIdsFor(Cell.class, Label.class);
+        this.labelService.saveLabels(labels);
         for (Label label:labels){
-            System.out.println("Label Value" + " " + label.getText());
-            for (Cell cell:label.getCells()) {
-                System.out.println("Value of Cell:" + " " + cell.getText());
-            }
+            this.cellService.saveCells(label.getCells());
         }
 
+        System.out.println("I am DONE");
     }
-
-
 }
