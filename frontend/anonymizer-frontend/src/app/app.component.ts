@@ -11,11 +11,12 @@ export class AppComponent {
 
   constructor(private  router: Router) {
   }
+
   onLogout() {
     this.router.navigateByUrl('/login');
   }
 
   onLogin(value: any) {
-    this.router.navigateByUrl('/upload');
+    this.router.navigateByUrl('/uploadFile');
   }
 }
