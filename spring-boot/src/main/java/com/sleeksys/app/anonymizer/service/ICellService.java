@@ -45,4 +45,6 @@ public interface ICellService {
      * */
     public String anonymizeData(String data);
 
+    public void saveCells(List<Cell> cells);
+
 }

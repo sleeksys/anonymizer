@@ -49,6 +49,8 @@ public class CellService implements ICellService {
         return map;
     }
 
+
+
     /*
      * Saves Cells in the database
      *
@@ -247,5 +249,14 @@ public class CellService implements ICellService {
 
 
         return anonymizedData;
+    }
+
+    @Override
+    public void saveCells(List<Cell> cells) {
+        if(cells.size() >= 1){
+            for (Cell cell: cells) {
+                cellRepository.save(cell);
+            }
+        }
     }
 }
