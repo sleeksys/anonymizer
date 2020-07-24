@@ -2,20 +2,28 @@ package com.sleeksys.app.anonymizer.controller;
 
 import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Label;
+import com.sleeksys.app.anonymizer.service.Impl.CellService;
 import com.sleeksys.app.anonymizer.service.Impl.LabelService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 public class LabelController {
 
     private LabelService labelService;
+
+    private CellService cellService;
 
 
     @GetMapping("/labels")
@@ -23,10 +31,10 @@ public class LabelController {
         return this.labelService.findAll();
     }
 
-    @GetMapping("/labels/{id}")
+/*    @GetMapping("/labels/{id}")
     public  ResponseEntity<Label> findLabelById(@PathVariable(name = "id") Long id){
         return this.labelService.findLabelById(id);
-    }
+    }*/
 
 
     @DeleteMapping("labels")
@@ -56,6 +64,22 @@ public class LabelController {
     public  ResponseEntity<List<Cell>> findCellsOfLabelById(@PathVariable(name = "id") Long id){
 
         return this.labelService.findCellsOfLabelById(id);
+    }
+
+    @PostMapping("/uploadFile")
+    public void insert(@RequestParam("file") MultipartFile file) throws IOException {
+
+        System.out.println("Path File" + " " + file.getOriginalFilename());
+
+        List<Label> labels = this.cellService.extractLabelsFromExcelSheet(file.getInputStream(),1L);
+
+        for (Label label:labels){
+            System.out.println("Label Value" + " " + label.getText());
+            for (Cell cell:label.getCells()) {
+                System.out.println("Value of Cell:" + " " + cell.getText());
+            }
+        }
+
     }
 
 
