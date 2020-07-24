@@ -1,3 +1,7 @@
-<p>
-  upload-file works!
-</p>
+<div >
+  <p >
+    <input type="file" (change)="onSelectedFile($event)">
+    <button class="btn btn-success" (click)="uploadFile()">Upload</button>
+    {{progress}}
+  </p>
+</div>
