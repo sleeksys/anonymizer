@@ -1,21 +1,87 @@
 <section>
   <h4>Project Description</h4>
-  <div class="section_content"></div>
+  <div class="section_content">
+    <p>The goal of this project is to provide an easy to use open source tool for data anonymizing.</p>
+    <p>
+      In this case, we start building a server side application based on Java Spring Boot. We did not use any
+      complicated user authentication way, only a simple unique context's id that helps to identify a process
+      for a given session <code>HttpSession</code>.
+    </p>
+    <p>Anyone is free to download the repository and make any changes for personal or commercial use.</p>
+  </div>
 </section>
 
 <section>
   <h4>Technologies: Programming languages & Frameworks</h4>
 
-  <h5>Back-End:</h5>
-  <div class="technologies">...</div>
+  <div class="section_content">
+    <h5>Back-End:</h5>
+    <div class="technologies">
+      <span class="badge badge-secondary">Java</span>
+      <span class="badge badge-secondary">Spring Boot <sup>1</sup></span>
+      <span class="badge badge-secondary">JPA <sup>2</sup></span>
+      <span class="badge badge-secondary">JDBC <sup>2</sup></span>
+      <span class="badge badge-secondary">H2 <sup>2</sup></span>
+      <span class="badge badge-secondary">Lombok <sup>3</sup></span>
+      <span class="badge badge-secondary">Apache POI <sup>4</sup></span>
 
-  <h5>Front-End: for test cases only:</h5>
-  <div class="technologies">...</div>
+      <div class="technologies_explain">
+        <p>
+          <b>1*: Why Spring Boot?</b>
+          The main goal is to reduce development, unit test and integration time. And a really important point
+          is the ease of develop production ready web applications.
+        </p>
+        <p>
+          <b>2*: JPA, JDBC, H2</b>
+          The keyword is Embedded Databases. Our solution is built using this technology that is easy to store
+          and access information. Quick data processing, self contained and low latencies in terms of data
+          process.
+        </p>
+        <p>
+          <b>3*: Lombok</b>
+          Lombok helps us build powerful Java code without implementing any getter, setter, equals
+          methods. The library builds these and much more automatically and we reduce the code we need to produce.
+          <a href="https://projectlombok.org/" target="_blank">More about Lombok</a>
+        </p>
+        <p>
+          <b>4*: Apache POI</b>
+          The Java library provides a lot of features for manipulating file formats created by Microsoft Office. In
+          this case, we need it to read and write Microsoft Excel files.
+        </p>
+      </div>
+    </div>
 
-  <div class="section_content"></div>
+    <h5>Front-End: for test cases only:</h5>
+    <div class="technologies">
+      <span class="badge badge-secondary">Angular</span>
+      <span class="badge badge-secondary">Bootstrap</span>
+
+      <div class="technologies_explain">
+        <p>
+          <b>Angular</b>
+          For our test cases, we need a powerful JavaScript framework providing a set of HTTP functions for REST.
+          So we choose Angular.
+        </p>
+        <p>
+          <b>Bootstrap</b>
+          No need to build templates and components from scratch. Bootstrap provides the CSS and JS components we
+          wanted to build this test UI.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section>
   <h4>Contributors</h4>
-  <div class="section_content"></div>
+  <div class="section_content">
+    <p>Marius Guede . Founder and Software Developer at Sleek Systems</p>
+  </div>
+</section>
+
+<section>
+  <h4>Status</h4>
+  <div class="section_content">
+    <p>The solution is still in development.</p>
+  </div>
 </section>

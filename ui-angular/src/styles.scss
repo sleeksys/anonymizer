@@ -53,9 +53,16 @@ section {
       padding-top: 20px;
       background-color: $color-white;
 
-      section:not(:first-child) {
-        margin-top: 20px;
+      section {
+        &:not(:first-child) {
+          margin-top: 20px;
+        }
+
+        p {
+          margin-bottom: 0.4rem;
+        }
       }
+
     }
   }
 

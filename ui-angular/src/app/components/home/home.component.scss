@@ -4,4 +4,23 @@ h5 {
 
 .technologies {
   margin-bottom: 20px;
+
+  .badge {
+    font-size: 90%;
+
+    &:not(:first-child) {
+      margin-left: 5px;
+    }
+  }
+
+  .technologies_explain {
+    p {
+      margin: 10px 0px 20px;
+
+      b {
+        display: block;
+        font-weight: 700;
+      }
+    }
+  }
 }
