@@ -60,6 +60,9 @@ public class LabelService {
                     // update privacy level
                     label.setPrivacyLevel(level);
 
+                    // anonymize cell's text
+                    this.cellService.anonymizeCellText(contextId, label.getCellId(), level);
+
                     return this.labelRepository.save(label);
                 }
                 throw new ResourceNotFoundException("Authorization failed for sheet's cell.");

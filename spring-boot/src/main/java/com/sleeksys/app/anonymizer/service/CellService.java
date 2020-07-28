@@ -3,6 +3,7 @@ package com.sleeksys.app.anonymizer.service;
 import com.sleeksys.app.anonymizer.entity.Cell;
 import com.sleeksys.app.anonymizer.entity.Label;
 import com.sleeksys.app.anonymizer.entity.SessionContext;
+import com.sleeksys.app.anonymizer.enumeration.PrivacyLevel;
 import com.sleeksys.app.anonymizer.repository.CellRepository;
 import com.sleeksys.app.anonymizer.repository.LabelRepository;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,10 +21,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class CellService {
+
+    private Logger logger = LoggerFactory.getLogger(CellService.class);
 
     private CellRepository cellRepository;
     private LabelRepository labelRepository;
@@ -31,6 +37,27 @@ public class CellService {
 
     public Optional<Cell> findById(Long id) {
         return this.cellRepository.findById(id);
+    }
+
+    public List<Cell> findByContextId(String contextId) {
+        return this.entityService.findCells()
+                .stream()
+                .filter(cell -> (cell.getContextId().equals(contextId)))
+                .collect(Collectors.toList());
+    }
+
+    public List<Cell> findByRowIndex(String contextId, Integer rowIndex) {
+        return this.findByContextId(contextId)
+                .stream()
+                .filter(cell -> (cell.getRowIndex() == rowIndex))
+                .collect(Collectors.toList());
+    }
+
+    public List<Cell> findByColumnIndex(String contextId, Integer columnIndex) {
+        return this.findByContextId(contextId)
+                .stream()
+                .filter(cell -> (cell.getColumnIndex() == columnIndex))
+                .collect(Collectors.toList());
     }
 
     public Map<Integer, List<String>> findByContext(HttpSession session, String contextId) {
@@ -76,6 +103,30 @@ public class CellService {
             return labels;
         }
         throw new Exception("Please upload an excel file!");
+    }
+
+    public boolean anonymizeCellText(String contextId, Long cellId, PrivacyLevel privacyLevel) {
+        if (privacyLevel == PrivacyLevel.HIGH || privacyLevel == PrivacyLevel.MEDIUM) {
+            Optional<Cell> optional = this.findById(cellId);
+            if (optional.isPresent()) {
+                List<Cell> cellsInColumn = this.findByColumnIndex(contextId, optional.get().getColumnIndex());
+                cellsInColumn.forEach(cell -> {
+                    String text = cell.getText();
+
+                    if (privacyLevel == PrivacyLevel.HIGH) {
+                        text = "---";
+                    } else {
+                        text = (text.length() > 5) ? text.substring(0, 5) : "---";
+                    }
+
+                    // override cell's text
+                    cell.setText(text);
+                });
+                return true;
+            }
+        }
+        logger.warn("Nothing to anonymize.");
+        return true;
     }
 
     private boolean hasExcelFormat(MultipartFile file) {
