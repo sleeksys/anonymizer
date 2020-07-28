@@ -1,9 +1,11 @@
 <header>
   <div class="container">
+    <span class="app_name">anonymizer</span>
     <nav>
-      <a
-        [routerLink]="'/home'"
-        [className]="'active'">Home</a>
+      <a [routerLink]="'/home'"
+         [className]="'active'">Home</a>
+      <a [routerLink]="'/documentation'">Documentation</a>
+      <a [routerLink]="'/test/none'">Test</a>
     </nav>
   </div>
 </header>
@@ -15,5 +17,7 @@
 </section>
 
 <footer>
-  <div class="container"></div>
+  <div class="container">
+    <p>Sleek Systems UG . <small>Last update: July 2020</small></p>
+  </div>
 </footer>
