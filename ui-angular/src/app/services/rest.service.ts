@@ -7,26 +7,34 @@ import {Observable} from 'rxjs';
 })
 export class RestService {
 
-  private ENDPOINT = 'http://localhost:8080';
+  private ENDPOINT = 'https://api.sleeksys.com/anonymizer';
 
   constructor(private http: HttpClient) {
   }
 
-  private getHeaders(): any {
-    return {
+  private getHttpOptions(responseTypeText): any {
+    const options: any = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
     };
+
+    // response type text
+    if (responseTypeText) {
+      options.headers.set('Content-Type', 'text/plain; charset=utf-8');
+      options.responseType = 'text';
+    }
+
+    return options;
   }
 
   public get(url: string): Observable<any> {
     return this.http.get(this.ENDPOINT + url);
   }
 
-  public post(url: string, postBody: any): Observable<any> {
-    return this.http.post(this.ENDPOINT + url, postBody);
+  public post(url: string, postBody: any, responseTypeText: boolean): Observable<any> {
+    return this.http.post(this.ENDPOINT + url, postBody, this.getHttpOptions(responseTypeText));
   }
 
   public put(url: string, postBody: any): Observable<any> {

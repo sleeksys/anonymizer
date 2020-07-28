@@ -94,6 +94,7 @@
         "named": "never"
       }
     },
+    "triple-equals": false,
     "typedef": [
       true,
       "call-signature"
