@@ -1,9 +1,10 @@
-package org.sid.taskmanagement.security.JWT;
+package com.sleeksys.app.anonymizer.security.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.sid.taskmanagement.security.entities.AppUser;
+
+import com.sleeksys.app.anonymizer.security.entities.AppUser;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

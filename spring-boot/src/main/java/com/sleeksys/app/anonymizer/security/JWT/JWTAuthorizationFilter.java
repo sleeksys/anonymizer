@@ -1,4 +1,4 @@
-package org.sid.taskmanagement.security.JWT;
+package com.sleeksys.app.anonymizer.security.JWT;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

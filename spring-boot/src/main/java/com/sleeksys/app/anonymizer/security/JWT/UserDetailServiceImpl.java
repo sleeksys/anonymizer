@@ -1,8 +1,8 @@
-package org.sid.taskmanagement.security.JWT;
+package com.sleeksys.app.anonymizer.security.JWT;
 
 
-import org.sid.taskmanagement.security.entities.AppUser;
-import org.sid.taskmanagement.security.services.AccountService;
+import com.sleeksys.app.anonymizer.security.entities.AppUser;
+import com.sleeksys.app.anonymizer.security.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

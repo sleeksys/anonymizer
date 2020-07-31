@@ -1,4 +1,4 @@
-package org.sid.taskmanagement.security.entities;
+package com.sleeksys.app.anonymizer.security.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

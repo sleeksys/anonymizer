@@ -1,4 +1,4 @@
-package org.sid.taskmanagement.security.entities;
+package com.sleeksys.app.anonymizer.security.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

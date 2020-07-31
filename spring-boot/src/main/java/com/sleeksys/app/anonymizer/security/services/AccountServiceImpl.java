@@ -1,11 +1,11 @@
-package org.sid.taskmanagement.security.services;
+package com.sleeksys.app.anonymizer.security.services;
 
+import com.sleeksys.app.anonymizer.security.entities.AppRole;
+import com.sleeksys.app.anonymizer.security.entities.AppUser;
+import com.sleeksys.app.anonymizer.security.repositories.AppRoleRepository;
+import com.sleeksys.app.anonymizer.security.repositories.AppUserRepository;
 import lombok.AllArgsConstructor;
 
-import org.sid.taskmanagement.security.entities.AppRole;
-import org.sid.taskmanagement.security.entities.AppUser;
-import org.sid.taskmanagement.security.repositories.AppRoleRepository;
-import org.sid.taskmanagement.security.repositories.AppUserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

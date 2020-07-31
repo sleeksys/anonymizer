@@ -1,8 +1,8 @@
-package org.sid.taskmanagement.security.services;
+package com.sleeksys.app.anonymizer.security.services;
 
 
-import org.sid.taskmanagement.security.entities.AppRole;
-import org.sid.taskmanagement.security.entities.AppUser;
+import com.sleeksys.app.anonymizer.security.entities.AppRole;
+import com.sleeksys.app.anonymizer.security.entities.AppUser;
 
 public interface AccountService {
 

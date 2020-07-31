@@ -1,7 +1,8 @@
-package org.sid.taskmanagement.security.repositories;
+package com.sleeksys.app.anonymizer.security.repositories;
 
 
-import org.sid.taskmanagement.security.entities.AppRole;
+
+import com.sleeksys.app.anonymizer.security.entities.AppRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

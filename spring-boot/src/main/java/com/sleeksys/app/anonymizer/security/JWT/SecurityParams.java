@@ -1,4 +1,4 @@
-package org.sid.taskmanagement.security.JWT;
+package com.sleeksys.app.anonymizer.security.JWT;
 
 public interface SecurityParams {
     public static final String HEADER_NAME ="Authorization";

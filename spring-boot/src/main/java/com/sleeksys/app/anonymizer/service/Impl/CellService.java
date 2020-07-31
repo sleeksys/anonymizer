@@ -104,6 +104,7 @@ public class CellService implements ICellService {
                 rowNumber++;
             }
             workbook.close();
+            is.close();
         } catch (IOException e) {
             throw new RuntimeException("Failed to parse Excel file: " + e.getMessage());
         }
