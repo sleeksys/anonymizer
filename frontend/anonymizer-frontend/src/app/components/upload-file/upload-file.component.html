@@ -1,7 +1,23 @@
-<div >
-  <p >
-    <input type="file" (change)="onSelectedFile($event)">
-    <button class="btn btn-success" (click)="uploadFile()">Upload</button>
+<!--<div class="form-group">
+  <label>Upload Excel Sheet:</label>
+    <input type="file" (change)="onSelectedFile($event)" style="margin-top: 20px">
+    <button class="btn btn-success" (click)="uploadFile()" style="margin-top: 20px">Upload</button>
     {{progress}}
-  </p>
+</div>-->
+
+
+<div class="row col-md-6 col-md-offset-3">
+  <div class="panel panel-primary">
+    <div class="panel-heading">Upload Excel Sheet</div>
+    <div class="panel-body">
+      <form >
+        <div class="form-group">
+          <input type="file" (change)="onSelectedFile($event)" style="margin-top: 20px">
+        </div>
+
+        <button class="btn btn-success" (click)="uploadFile()" style="margin-top: 20px">Upload</button>
+        {{progress}}
+      </form>
+    </div>
+  </div>
 </div>

@@ -1,18 +1,23 @@
-<div class="col-md-6">
-  <div class="panel panel-primary">
+<div class="container spacer">
+  <div class="alert alert-danger" *ngIf="mode==1">
+    <strong>Bad credentials</strong> Invalid username or password
+  </div>
+  <div class="panel panel-default">
     <div class="panel-heading">Authentification</div>
     <div class="panel-body">
       <form #f="ngForm" (ngSubmit)="onLogin(f.value)">
         <div class="form-group">
-          <label class="control-label">Username</label>
-          <input type="text" name="username" ngModel class="form-control">
+          <label class="control-label spacer-right">Username:</label>
+          <input class="form-group" type="text" [ngModel] name="username" [required]>
         </div>
         <div class="form-group">
-          <label class="control-label">Password</label>
-          <input type="password" name="password" ngModel class="form-control">
+          <label class="control-label spacer-right">Password:</label>
+          <input class="form-group" type="password" [ngModel] name="password" [required]>
         </div>
-        <button class="btn btn-primary" type="submit">Login</button>
+        <button [disabled]="!f.valid" type="submit" class="btn btn-primary spacer-right">Login</button>
+        <button (click)="onRegister()" class="btn btn-success" [disabled]="!f.valid">Register New User</button>
       </form>
     </div>
   </div>
 </div>
+

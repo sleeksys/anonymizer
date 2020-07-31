@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UploadServiceService} from '../../services/upload-service.service';
 import {HttpEventType, HttpResponse} from '@angular/common/http';
+import {RestClientService} from "../../services/rest-client.service";
 
 @Component({
   selector: 'app-upload-file',
@@ -12,7 +13,8 @@ export class UploadFileComponent implements OnInit {
   private selectedFiles: any;
   private currentFileUpload: any;
 
-  constructor(private uploadService:UploadServiceService) { }
+  constructor(private uploadService:UploadServiceService,
+              private restClientService: RestClientService) { }
 
   ngOnInit() {
   }
@@ -26,10 +28,11 @@ export class UploadFileComponent implements OnInit {
 
     this.currentFileUpload =this.selectedFiles.item(0);
 
-    this.uploadService.uploadFile(this.currentFileUpload).subscribe(event =>{
+    this.restClientService.uploadFile(this.currentFileUpload).subscribe(event =>{
 
       if(event.type==HttpEventType.UploadProgress){
         this.progress = Math.round(100*event.loaded/event.total)
+        console.log("Erfolgreich");
       }else if (event instanceof HttpResponse){
        // this.timeStamp = Date.now();
       }

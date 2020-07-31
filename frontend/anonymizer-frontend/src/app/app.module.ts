@@ -7,12 +7,14 @@ import { LoginComponent } from './components/login/login.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import { UploadFileComponent } from './components/upload-file/upload-file.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    UploadFileComponent
+    UploadFileComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

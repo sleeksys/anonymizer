@@ -29,10 +29,10 @@ public class LabelController {
     private RepositoryRestConfiguration restConfiguration;
 
 
-/*    @GetMapping("/labels")
+    @GetMapping("/labels")
     public ResponseEntity<List<Label>> findAllLabels() {
         return this.labelService.findAll();
-    }*/
+    }
 
 /*    @GetMapping("/labels/{id}")
     public  ResponseEntity<Label> findLabelById(@PathVariable(name = "id") Long id){
